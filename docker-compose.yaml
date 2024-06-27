@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: youmealcase
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: testpassword
+    ports:
+      - "5432:5432"
+
+  api:
+    build: .
+    command: ./entrypoint.sh
+    volumes:
+      - .:/usr/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_NAME=youmealcase
+      - DJANGO_DB_USER=test
+      - DJANGO_DB_PASSWORD=testpassword
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=adminpassword
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com

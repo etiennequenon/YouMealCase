@@ -14,14 +14,11 @@ This repository contains the YouMealCase API, a Django-based web application tha
 ## Getting Started
 
 To get started with the YouMealCase API, you will need Docker and Docker Compose installed on your machine. Follow the instructions below to build and run the application.
+Next, in the youmealcase/ run `docker build`
 
 ## Usage
 
-The `entrypoint.sh` script provides the following commands:
-
-- `run`: Runs the YouMealCase API server.
-- `test`: Runs the YouMealCase API unit tests.
-- `manual`: Runs Django server with manual arguments in double quotes.
+Simply run `docker-compose up` to launch the youmeal Api
 
 ## Commands
 
@@ -32,8 +29,6 @@ The `entrypoint.sh` script provides the following commands:
 - **manual**: Runs Django server with manual arguments provided in double quotes.
 
 ### Running Commands with Docker Compose
-
-Simply do docker-compose up to launch the youmeal Api
 
 To pass arguments to the `entrypoint.sh` script, use the `docker-compose run` command followed by the service name and the arguments. For example:
 
@@ -136,6 +131,6 @@ curl -X POST http://localhost:8000/api/recipes/ -H "Content-Type: application/js
 
 ## Summary
 
-    The YouMealCase API allows managing recipes with nested ingredients and nutrient information.
-    Use the provided JSON structure to create, read, update, and delete recipes.
-    Ensure to test with valid JSON payloads to verify the correct functionality of the API.
+The YouMealCase API allows managing recipes with nested ingredients and nutrient information.
+Use the provided JSON structure to create, read, update, and delete recipes.
+Ensure to test with valid JSON payloads to verify the correct functionality of the API.

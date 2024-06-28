@@ -105,12 +105,24 @@ class RecipeTests(BaseTestsWithBasicAuth):
                 }
 
     def test_create_recipe(self):
+        # Test with already generated nutrient and ingredient
         url = reverse('recipe-list')
         response = self.client.post(url, self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, response.json())
         json_response = response.json()
         json_response.pop('id') # pop the id key as it will be created.
         self.assertEqual(json_response, self.data, json_response)
+        # Now test the a complete creation of all items.
+        scratch_recipe = self.data.copy()
+        for i in range(len(scratch_recipe['ingredients'])):
+            scratch_recipe['ingredients'][i].pop('id')
+            scratch_recipe['ingredients'][i]['ingredient'].pop('id')
+            scratch_recipe['ingredients'][i]['ingredient']['nutrient_information'][0].pop('id')
+        response = self.client.post(url, scratch_recipe, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, response)
+        self.assertEqual(Recipe.objects.count(), 2)
+        self.assertEqual(Ingredient.objects.count(), 4)
+        self.assertEqual(Nutrient.objects.count(), 4)
 
     def test_get_recipe(self):
         url = reverse('recipe-list')
@@ -119,3 +131,17 @@ class RecipeTests(BaseTestsWithBasicAuth):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.json())
         self.assertEqual(response.json(), created_recipe)
+
+    def test_update_recipe(self):
+        url = reverse('recipe-list')
+        created_recipe = self.client.post(url, self.data, format='json').json()
+        url = reverse('recipe-detail', args=[created_recipe.get('id')])
+        created_recipe['ingredients'][0]['ingredient']['allergen_information'] = 'NotSafeForWork'
+        created_recipe['ingredients'][0]['ingredient']['nutrient_information'][0]['amount'] = 20
+        response = self.client.put(url, created_recipe, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, response)
+        # Check the HTTP response.
+        self.assertEqual(response.json(), created_recipe, f'Got {response.json()}\n\n Expected {created_recipe}') 
+        # Check the Database values.
+        self.assertEqual(Ingredient.objects.get(pk=created_recipe['ingredients'][0]['ingredient'].get('id')).allergen_information, 'NotSafeForWork')
+        self.assertEqual(Nutrient.objects.get(pk=created_recipe['ingredients'][0]['ingredient']['nutrient_information'][0].get('id')).amount, 20)

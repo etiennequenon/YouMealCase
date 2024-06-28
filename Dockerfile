@@ -4,7 +4,9 @@ WORKDIR /usr/src
 
 COPY . /usr/src
 
-RUN chmod +x ./entrypoint.sh
+RUN apt-get update && apt-get install -y netcat-openbsd && rm -rf /var/lib/apt/lists/*
+
+RUN chmod +x ./entrypoint.sh ./wait_for_db.sh
 
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt

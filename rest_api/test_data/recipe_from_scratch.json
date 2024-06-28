@@ -1,0 +1,43 @@
+{
+    "name": "Chicken Salad",
+    "ingredients": [
+        {
+            "ingredient": {
+                "name": "Chicken Breast",
+                "nutrient_information": [
+                    {
+                        "name": "Protein",
+                        "amount": 31,
+                        "unit": "g"
+                    },
+                    {
+                        "name": "Fat",
+                        "amount": 3.6,
+                        "unit": "g"
+                    }
+                ],
+                "allergen_information": "None"
+            },
+            "quantity": 200
+        },
+        {
+            "ingredient": {
+                "name": "Lettuce",
+                "nutrient_information": [
+                    {
+                        "name": "Fiber",
+                        "amount": 1.2,
+                        "unit": "g"
+                    },
+                    {
+                        "name": "Vitamin C",
+                        "amount": 9.2,
+                        "unit": "mg"
+                    }
+                ],
+                "allergen_information": "None"
+            },
+            "quantity": 100
+        }
+    ]
+}

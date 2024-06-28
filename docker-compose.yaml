@@ -12,7 +12,7 @@ services:
 
   api:
     build: .
-    command: ./entrypoint.sh
+    command: run
     volumes:
       - .:/usr/src
     ports:

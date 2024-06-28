@@ -8,8 +8,7 @@ This repository contains the YouMealCase API, a Django-based web application tha
 - [Usage](#usage)
 - [Commands](#commands)
 - [Docker Configuration](#docker-configuration)
-- [Contributing](#contributing)
-- [License](#license)
+- [Bonus Case Answer](#bonus-case-answer)
 
 ## Getting Started
 
@@ -137,3 +136,14 @@ curl -X POST http://localhost:8000/api/recipes/ -u admin:adminpassword -H "Conte
 The YouMealCase API allows managing recipes with nested ingredients and nutrient information.
 Use the provided JSON structure to create, read, update, and delete recipes.
 Ensure to test with valid JSON payloads to verify the correct functionality of the API.
+
+## Bonus Case Answer
+
+### How would you handle scalability and performance for this system in a real-world scenario ?
+
+Simply put, the REST architecture is made to scale well. Using this for a simple case as shown is a bit overkill in terms of effort.
+
+My main concerns at this point would be to provide a real production Web server like uWSGI or Gunicorn to allow queueing of requests and avoid server saturation.
+I would then probably review as the project grows the overall architecture and add abstractions to keep the business core intact and avoid depending on django models directly.
+
+Perhaps I could also think of moving to another ORM as the Django's built-in tends to have few beautiful bugs with the PostgreSQL's implementation.

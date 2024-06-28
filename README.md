@@ -14,7 +14,8 @@ This repository contains the YouMealCase API, a Django-based web application tha
 ## Getting Started
 
 To get started with the YouMealCase API, you will need Docker and Docker Compose installed on your machine. Follow the instructions below to build and run the application.
-Next, in the youmealcase/ run `docker build`
+
+Next, in the youmealcase root folder container the Dockerfile, run `docker build`
 
 ## Usage
 

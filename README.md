@@ -70,9 +70,11 @@ The docker-compose.yaml file is used to orchestrate the containers, including th
 
     Same goes for Nutrients and Ingredients ressources.
 
-## Example API Request
+## Test the API with Curl
 
-curl -X POST http://localhost:8000/api/recipes/ -H "Content-Type: application/json" -d '{
+To test the API with curl, you need to use basic authentication with the username and password set in the Docker Compose environment variables located in docker-compose.yaml (DJANGO_SUPERUSER_USERNAME and DJANGO_SUPERUSER_PASSWORD).
+
+curl -X POST http://localhost:8000/api/recipes/ -u admin:adminpassword -H "Content-Type: application/json" -d '{
     "name": "Chicken Salad",
     "ingredients": [
         {
